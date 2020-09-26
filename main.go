@@ -16,6 +16,7 @@ func main() {
 	r.GET("/someGet", getting)
 	r.GET("/user/get", user.GetAllUser)
 	r.GET("/user/getUsers", user.GetUsers)
+	r.GET("/home/index", user.Index)
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
 
