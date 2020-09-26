@@ -10,6 +10,7 @@ import (
 	//"github.com/jinzhu/gorm"
 	"sync"
 )
+
 var wg sync.WaitGroup
 
 func Index(c *gin.Context) {
@@ -26,11 +27,19 @@ func Index(c *gin.Context) {
 	var r2 int
 	var r3 int
 	var r4 int
-	wg.Add(4)
-	go suan(n1,&r1)
-	go suan(n1,&r2)
-	go suan(n1,&r3)
-	go suan(n1,&r4)
+	var r5 int
+	var r6 int
+	var r7 int
+	var r8 int
+	wg.Add(8)
+	go suan(n1, &r1)
+	go suan(n1, &r2)
+	go suan(n1, &r3)
+	go suan(n1, &r4)
+	go suan(n1, &r5)
+	go suan(n1, &r6)
+	go suan(n1, &r7)
+	go suan(n1, &r8)
 	wg.Wait()
 	t2 := time.Since(t1)
 	fmt.Println(t2)
@@ -41,9 +50,9 @@ func Index(c *gin.Context) {
 
 }
 
-func suan(n int,r *int) {
-	for i :=0;i<n;i++ {
-		*r = *r+i
+func suan(n int, r *int) {
+	for i := 0; i < n; i++ {
+		*r = *r + i
 	}
 	wg.Done()
 }
