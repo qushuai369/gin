@@ -18,7 +18,7 @@ func Index(c *gin.Context) {
 	cpuNum := runtime.NumCPU()
 	fmt.Println("cpuNum=", cpuNum)
 	//可以自己设置使用多个 cpu
-	//runtime.GOMAXPROCS(1)
+	runtime.GOMAXPROCS(1)
 	//cpuNum = runtime.NumCPU()
 	//fmt.Println("cpuNum=", cpuNum)
 	t1 := time.Now()
@@ -44,9 +44,9 @@ func Index(c *gin.Context) {
 	t2 := time.Since(t1)
 	fmt.Println(t2)
 	fmt.Println(r1)
-	fmt.Println(r2)
-	fmt.Println(r3)
-	fmt.Println(r4)
+	//fmt.Println(r2)
+	//fmt.Println(r3)
+	//fmt.Println(r4)
 
 }
 

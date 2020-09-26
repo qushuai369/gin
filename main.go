@@ -17,6 +17,8 @@ func main() {
 	r.GET("/user/get", user.GetAllUser)
 	r.GET("/user/getUsers", user.GetUsers)
 	r.GET("/home/index", user.Index)
+	r.POST("/home/Postdata", user.PostData)
+	r.POST("/home/Postfile", user.PostFile)
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
 
