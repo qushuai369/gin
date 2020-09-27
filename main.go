@@ -4,12 +4,10 @@ import (
 	"fmt"
 	"gin/app/user"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func main() {
 	r := gin.Default()
-	http.ListenAndServe(":8181", r)
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
@@ -22,7 +20,8 @@ func main() {
 	r.GET("/home/tt", user.Tt)
 	r.POST("/home/Postdata", user.PostData)
 	r.POST("/home/Postfile", user.PostFile)
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.Run(":8181") // listen and serve on 0.0.0.0:8080
+
 }
 
 func getting(c *gin.Context) {
