@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"runtime"
+	"strconv"
 	"time"
 
 	//_ "github.com/go-sql-driver/mysql"
@@ -55,4 +56,15 @@ func suan(n int, r *int) {
 		*r = *r + i
 	}
 	wg.Done()
+}
+
+func Tt(c *gin.Context) {
+	pathTmp := "/ " + strconv.Itoa(int(time.Now().Month())) + strconv.Itoa(time.Now().Day()) +"/"
+	c.JSON(200, gin.H{
+		"status": 1,
+		"msg":    "成功",
+		"data":   pathTmp,
+	})
+	fmt.Println(pathTmp)
+	fmt.Printf("%T",time.Now().Unix())
 }

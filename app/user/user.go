@@ -8,6 +8,10 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"net/http"
 	"os"
+	"path"
+	"strconv"
+	"time"
+	"math/rand"
 
 	//"github.com/jinzhu/gorm"
 )
@@ -64,29 +68,8 @@ func PostData(c *gin.Context)  {
 func PostFile(c *gin.Context) {
 	file, err := c.FormFile("file")
 	if err ==nil {
-		uperr := c.SaveUploadedFile(file, "./public/image/"+file.Filename)
-		if(uperr==nil) {
-			c.JSON(200, gin.H{
-				"status": 1,
-				"msg":    "上传成功",
-			})
-		} else {
-			fmt.Println(uperr)
-			c.JSON(200, gin.H{
-				"status": -2,
-				"msg":    "上传失败",
-			})
-		}
-		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
-	} else {
-		c.JSON(200, gin.H{
-			"status": -1,
-			"msg":    "上传失败",
-		})
-	}
-
-	Path := "./public/image/"
-		pathTmp := Path + "/201802"
+		Path := "./public/image/"
+		pathTmp := Path + "/ " + strconv.Itoa(int(time.Now().Month())) + strconv.Itoa(time.Now().Day()) +"/"
 		if isDirExists(pathTmp) {
 			fmt.Println("目录存在")
 		} else {
@@ -94,10 +77,21 @@ func PostFile(c *gin.Context) {
 			err := os.Mkdir(pathTmp, 0777)
 			if err != nil {
 				//log.Fatal(err)
+				c.JSON(200, gin.H{"status": -1, "msg": "创建目录失败",})
 			}
 			//os.chmod(pathTmp, 0777)//通过chmod重新赋权限
 		}
-
+		uperr := c.SaveUploadedFile(file, pathTmp + strconv.FormatInt(time.Now().Unix(),10) + strconv.Itoa(rand.Intn(999999-100000)+100000) + path.Ext(file.Filename))
+		if(uperr==nil) {
+			c.JSON(200, gin.H{"status": 1, "msg": "上传成功",})
+		} else {
+			fmt.Println(uperr)
+			c.JSON(200, gin.H{"status": -2, "msg": "上传失败",})
+		}
+		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
+	} else {
+		c.JSON(200, gin.H{"status": -1, "msg": "上传失败",})
+	}
 
 }
 func isDirExists(path string) bool {
