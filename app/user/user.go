@@ -68,12 +68,8 @@ func PostFile(c *gin.Context) {
 	file, err := c.FormFile("file")
 	if err ==nil {
 		Path := "./public/image/"
-		month := int(time.Now().Month())
-		monthstr := ""
-		if month < 10 {
-			monthstr = "0"
-		}
-		date := strconv.Itoa(time.Now().Year()) + monthstr + strconv.Itoa(month) + strconv.Itoa(time.Now().Day())
+		t := time.Now()
+		date := t.Format("20060102")
 		pathTmp := Path + "/ " + date +"/"
 		if isDirExists(pathTmp) {
 			fmt.Println("目录存在")
