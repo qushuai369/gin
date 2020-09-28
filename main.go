@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"gin/app/user"
 	"github.com/gin-gonic/gin"
+	"gin/common"
 )
 
 func main() {
+	fmt.Println(common.Date())
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
